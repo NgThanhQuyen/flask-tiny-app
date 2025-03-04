@@ -16,7 +16,7 @@ git clone git@github.com:NgThanhQuyen/flask-tiny-app.git
 ```bash
 Vào thư mục flask-tutorial -> Open in Terminal
 flask --app flaskr run --debug
-Nhấn vào đường link https://...
+Giữ ctrl và nhấn chuột vào đường link http://127.0.0.1:5000
 ```
 ## d. Link project
 https://github.com/NgThanhQuyen/flask-tiny-app.git
