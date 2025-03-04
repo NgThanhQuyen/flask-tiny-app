@@ -14,7 +14,7 @@
 
 ### Cài đặt  
 ```bash
-git clone https://github.com/[your-github-username]/flask-tiny-app.git
+git clone https://github.com/NgThanhQuyen/flask-tiny-app.git
 cd flask-tiny-app
 python -m venv venv
 source venv/bin/activate  # (Linux/Mac)
@@ -23,4 +23,4 @@ pip install -r requirements.txt
 python app.py
 ```
 ## d. Link project
-
+https://github.com/NgThanhQuyen/flask-tiny-app.git
