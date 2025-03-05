@@ -49,17 +49,14 @@ def login():
             'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
 
-        if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
-
-        if error is None:
+        if user is None or not check_password_hash(user['password'], password):
+            flash("Sai tên đăng nhập hoặc mật khẩu.")
+        elif user["is_blocked"]:
+            flash("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ admin.")
+        else:
             session.clear()
             session['user_id'] = user['id']
             return redirect(url_for('index'))
-
-        flash(error)
 
     return render_template('auth/login.html')
 

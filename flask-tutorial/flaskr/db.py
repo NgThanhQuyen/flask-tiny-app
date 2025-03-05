@@ -3,6 +3,7 @@ from datetime import datetime
 
 import click
 from flask import current_app, g
+from werkzeug.security import generate_password_hash
 
 
 def get_db():
@@ -27,6 +28,18 @@ def init_db():
 
     with current_app.open_resource('schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
+
+def block_user(db, user_id, block_status):
+    """Cập nhật trạng thái khóa/mở khóa user."""
+    db.execute("UPDATE user SET is_blocked = ? WHERE id = ?", (block_status, user_id))
+    db.commit()
+
+def reset_password(db, user_id, new_password):
+    """Reset mật khẩu user (lưu ý cần hash mật khẩu trước khi lưu)."""
+    hashed_password = generate_password_hash(new_password)
+    db.execute("UPDATE user SET password = ? WHERE id = ?", (hashed_password, user_id))
+    db.commit()
+
 
 
 @click.command('init-db')

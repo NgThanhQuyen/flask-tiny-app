@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Danh sách User</h1>
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Trạng thái</th>
+      <th>Hành động</th>
+    </tr>
+    {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ "Bị khóa" if user.is_blocked else "Hoạt động" }}</td>
+        <td>
+          <a href="{{ url_for('admin.block', user_id=user.id) }}">
+            {{ "Mở khóa" if user.is_blocked else "Khóa" }}
+          </a>
+          <form method="post" action="{{ url_for('admin.reset', user_id=user.id) }}">
+            <input type="password" name="new_password" placeholder="Mật khẩu mới" required>
+            <button type="submit">Reset</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
