@@ -11,12 +11,24 @@ bp = Blueprint('blog', __name__)
 @bp.route('/')
 def index():
     db = get_db()
+    page = request.args.get('page', 1, type=int)  # Lấy số trang từ URL (mặc định là 1)
+    per_page = 10  # Số bài viết mỗi trang
+    offset = (page - 1) * per_page  # Tính vị trí bắt đầu của bài viết
+
+    # Lấy bài viết cho trang hiện tại
     posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
+        '''SELECT p.id, title, body, created, author_id, username
+           FROM post p JOIN user u ON p.author_id = u.id
+           ORDER BY created DESC
+           LIMIT ? OFFSET ?''',
+        (per_page, offset)
     ).fetchall()
-    return render_template('blog/index.html', posts=posts)
+
+    # Đếm tổng số bài viết để tính số trang
+    total_posts = db.execute('SELECT COUNT(id) FROM post').fetchone()[0]
+    total_pages = (total_posts + per_page - 1) // per_page  # Tính tổng số trang
+
+    return render_template('blog/index.html', posts=posts, page=page, total_pages=total_pages)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required

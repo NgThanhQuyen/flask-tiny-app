@@ -24,3 +24,27 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    color: #007BFF;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.pagination span {
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.pagination a:hover {
+    background-color: #007BFF;
+    color: white;
+}
