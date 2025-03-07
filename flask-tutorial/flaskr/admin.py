@@ -3,7 +3,7 @@ from flaskr.db import get_db, block_user, reset_password
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
-@bp.route('/users')
+@bp.route('/')
 def user_list():
     """Hiển thị danh sách user"""
     db = get_db()
